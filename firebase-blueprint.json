@@ -1,0 +1,140 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Template purchase order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "items": { "type": "array", "items": { "type": "object" } },
+        "status": { "type": "string", "enum": ["pending", "processing", "completed", "cancelled"] },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "paymentProofUrl": { "type": "string" },
+        "promoCodeApplied": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "status", "totalAmount", "items"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "User feedback",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "content": { "type": "string" },
+        "rating": { "type": "number" },
+        "isApproved": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "content", "rating"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "App-wide settings",
+      "type": "object",
+      "properties": {
+        "paymentQrUrl": { "type": "string" }
+      }
+    },
+    "Template": {
+      "title": "Template",
+      "description": "A website template for sale",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "demoUrl": { "type": "string" },
+        "liveUrl": { "type": "string" },
+        "price": { "type": "number" },
+        "order": { "type": "number" }
+      },
+      "required": ["title", "description", "imageUrl", "price"]
+    },
+    "CustomOrder": {
+      "title": "CustomOrder",
+      "description": "Custom website request",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "projectType": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "AddOn": {
+      "title": "AddOn",
+      "description": "Available add-on service",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" }
+      }
+    },
+    "PromoCode": {
+      "title": "PromoCode",
+      "description": "Discount code",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "discountType": { "type": "string" },
+        "discountValue": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "expiryDate": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Template purchase orders"
+    },
+    "/custom_orders/{customOrderId}": {
+      "schema": "CustomOrder",
+      "description": "Custom website requests"
+    },
+    "/addons/{addonId}": {
+      "schema": "AddOn",
+      "description": "Available add-ons"
+    },
+    "/promo_codes/{promoId}": {
+      "schema": "PromoCode",
+      "description": "Discount codes"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "User feedback"
+    },
+    "/settings/{settingId}": {
+      "schema": "Settings",
+      "description": "App-wide settings"
+    },
+    "/projects/{projectId}": {
+      "schema": "Template",
+      "description": "Website templates"
+    }
+  }
+}
